@@ -13,4 +13,4 @@ This command will create a tetherport record and then teleport the admin to the 
 This command will untether the admin and teleport them back to the saved location
 
 # Initial Setup
-Please read the Initial Setup section here: https://github.com/Encryptoid/zucchini-empyrion
+Please read the Initial Setup section here: https://github.com/Encryptoid/zucchini-empyrion#initial-setup-notes
