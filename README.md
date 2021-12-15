@@ -1,6 +1,8 @@
 # Empyrion-AdminTetherport
 
-This is a Server based mod for Empyrion designed for events on the Anvil server, but could be used on other servers.
+This is a Server based mod for Empyrion designed for use on the Anvil server, but could be used on other servers.
+
+The purpose is to allow an Admin to teleport to a player to complete a ticket, and then return to where they were, easily.
 
 The "entry point" for mod code is AdminTetherport.cs
 
