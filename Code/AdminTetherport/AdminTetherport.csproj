@@ -55,9 +55,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tetherporter">
-      <HintPath>..\..\..\Tetherporter\Tetherporter\bin\Debug\Tetherporter.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminTetherport.cs" />

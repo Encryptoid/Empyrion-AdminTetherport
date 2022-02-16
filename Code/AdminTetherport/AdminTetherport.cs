@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ using EmpyrionModdingFramework.Database;
 using EmpyrionModdingFramework.Teleport;
 using InventoryManagement;
 using ModLocator;
-using Tetherporter;
+
 
 namespace AdminTetherport
 {
@@ -54,7 +55,7 @@ namespace AdminTetherport
             PlayerInfo player = await QueryPlayerInfo(messageData.SenderEntityId);
             if (player == null) return;
 
-            var tetherporterRecord = _dbManager.LoadRecords<TetherporterRecord>(TetherporterHelper.FormatTetherportFileName(player.steamId))?.FirstOrDefault();
+            var tetherporterRecord = _dbManager.LoadRecords<PlayerLocationRecord>(FormatTetherportFileName(player.steamId))?.FirstOrDefault();
 
             if (tetherporterRecord == null)
             {
@@ -79,7 +80,7 @@ namespace AdminTetherport
             var adminPlayer = await QueryPlayerInfo(playerId);
 
             //Save new admin tether record
-            _dbManager.SaveRecord(TetherporterHelper.FormatTetherportFileName(adminPlayer.steamId), adminPlayer.ToPlayerLocationRecord(), 
+            _dbManager.SaveRecord(FormatTetherportFileName(adminPlayer.steamId), adminPlayer.ToPlayerLocationRecord(), 
                 clearExisting: true);
 
             await TeleportPlayerToPlayer(adminPlayer.entityId, targetPlayerId);
@@ -103,6 +104,11 @@ namespace AdminTetherport
         private string FormatPlayerLocation(PlayerInfo player)
         {
             return $"<link=\"{player.entityId}\"><indent=5%><line-height=150%>{player.playerName} | {player.entityId} | {player.playfield} | X:{player.pos.x} | Y:{player.pos.y} | Z:{player.pos.z}</line-height></indent></link>\n";
+        }
+
+        public static string FormatTetherportFileName(string steamId)
+        {
+            return Path.Combine("Tethers", $"{steamId}.tether");
         }
     }
 }

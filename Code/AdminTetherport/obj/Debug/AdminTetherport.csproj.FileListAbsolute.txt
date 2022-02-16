@@ -7,7 +7,6 @@ L:\GitRepos\AdminTetherport\Code\AdminTetherport\bin\Debug\InventoryManagment.dl
 L:\GitRepos\AdminTetherport\Code\AdminTetherport\bin\Debug\Mif.dll
 L:\GitRepos\AdminTetherport\Code\AdminTetherport\bin\Debug\ModApi.dll
 L:\GitRepos\AdminTetherport\Code\AdminTetherport\bin\Debug\ModLocator.dll
-L:\GitRepos\AdminTetherport\Code\AdminTetherport\bin\Debug\Tetherporter.dll
 L:\GitRepos\AdminTetherport\Code\AdminTetherport\bin\Debug\CsvHelper.dll
 L:\GitRepos\AdminTetherport\Code\AdminTetherport\bin\Debug\YamlDotNet.dll
 L:\GitRepos\AdminTetherport\Code\AdminTetherport\bin\Debug\protobuf-net.dll
@@ -79,7 +78,6 @@ L:\GitRepos\AdminTetherport\Code\AdminTetherport\bin\Debug\UnityEngine.InputModu
 L:\GitRepos\AdminTetherport\Code\AdminTetherport\bin\Debug\EmpyrionModdingFramework.pdb
 L:\GitRepos\AdminTetherport\Code\AdminTetherport\bin\Debug\InventoryManagment.pdb
 L:\GitRepos\AdminTetherport\Code\AdminTetherport\bin\Debug\ModLocator.pdb
-L:\GitRepos\AdminTetherport\Code\AdminTetherport\bin\Debug\Tetherporter.pdb
 L:\GitRepos\AdminTetherport\Code\AdminTetherport\bin\Debug\CsvHelper.xml
 L:\GitRepos\AdminTetherport\Code\AdminTetherport\bin\Debug\YamlDotNet.xml
 L:\GitRepos\AdminTetherport\Code\AdminTetherport\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
