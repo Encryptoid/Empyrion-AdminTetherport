@@ -94,10 +94,7 @@ namespace AdminTetherport
 
             foreach (var player in players) 
             {
-                for (var i = 0; i < 25; i++)
-                {
-                    uiString += FormatPlayerLocation(player);
-                }
+                uiString += FormatPlayerLocation(player);
             }
 
             return uiString;
