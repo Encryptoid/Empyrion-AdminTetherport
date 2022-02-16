@@ -7,6 +7,7 @@ using Eleon;
 using Eleon.Modding;
 using EmpyrionModdingFramework;
 using EmpyrionModdingFramework.Database;
+using EmpyrionModdingFramework.Teleport;
 using InventoryManagement;
 using ModLocator;
 using Tetherporter;
@@ -25,34 +26,27 @@ namespace AdminTetherport
             _dbManager = new CsvManager(modLocator.GetDatabaseFolder(ModName));
 
             CommandManager.CommandPrexix = "!";
-            CommandManager.CommandList.Add(new ChatCommand("admintetherport", AdminTetherporter, PlayerPermission.Admin, paramCount: 1));
-            CommandManager.CommandList.Add(new ChatCommand("attp", AdminTetherporter, PlayerPermission.Admin, 1));
+            CommandManager.CommandList.Add(new ChatCommand("admintetherport", AdminTetherporter, PlayerPermission.Admin));
+            CommandManager.CommandList.Add(new ChatCommand("attp", AdminTetherporter, PlayerPermission.Admin));
             CommandManager.CommandList.Add(new ChatCommand("uattp", Untether, PlayerPermission.Admin));
         }
 
-        private async Task AdminTetherporter(MessageData messageData, object[] parameters)
+        private async Task AdminTetherporter(MessageData messageData)
         {
-            PlayerInfo player = await QueryPlayerInfo(messageData.SenderEntityId);
-            if (player == null) return;
+            PlayerInfo adminPlayer = await QueryPlayerInfo(messageData.SenderEntityId);
+            if (adminPlayer == null) return;
 
-            // Create Tetherport record
-            var record = new TetherporterRecord(player.steamId, player.entityId, player.playfield, player.pos, player.rot);
-            _dbManager.SaveRecord(FormatRecordId(player.steamId), record);
+            var playerIdList = await QueryPlayerList();
 
-            // Parse Target EntityId
-            if(!ChatCommand.ParseIntParam(parameters, 0, out var targetEntityId))
+            List<PlayerInfo> allPlayers = new List<PlayerInfo>();
+            foreach(var playerId in playerIdList)
             {
-                await MessagePlayer(player.entityId, $"Could not parse integer EntityId from parameter.", 5);
-                return;
+                allPlayers.Add(await QueryPlayerInfo(playerId));
             }
 
-            // Get Target player info
-            PlayerInfo target = await QueryPlayerInfo(targetEntityId);
-            if (target == null) return;
+            ShowLinkedDialog(adminPlayer.entityId, FormatPlayerList(allPlayers), "Admin Tetherporter!", TetherportToPlayer);
 
-            // Teleport Admin to Player & inform them
-            await TeleportPlayer(player.entityId, target.playfield, target.pos.x, target.pos.y, target.pos.z, target.rot.x, target.rot.y, target.rot.z);
-            await MessagePlayer(player.entityId, $"Created Admin Tetherporter tether! Telported to {target.playerName}::{targetEntityId}.", 5);
+            return;
         }
 
         private async Task Untether(MessageData messageData)
@@ -60,7 +54,9 @@ namespace AdminTetherport
             PlayerInfo player = await QueryPlayerInfo(messageData.SenderEntityId);
             if (player == null) return;
 
-            if (!_dbManager.LoadRecord<TetherporterRecord>(FormatRecordId(player.steamId), out var tetherporterRecord))
+            var tetherporterRecord = _dbManager.LoadRecords<TetherporterRecord>(TetherporterHelper.FormatTetherportFileName(player.steamId))?.FirstOrDefault();
+
+            if (tetherporterRecord == null)
             {
                 Log($"Entity {player.entityId}/{player.playerName} requester Untether but no tether was found.");
                 await MessagePlayer(player.entityId, $"No tether was found.", 5, MessagerPriority.Red);
@@ -72,9 +68,44 @@ namespace AdminTetherport
                 tetherporterRecord.RotX, tetherporterRecord.RotY, tetherporterRecord.RotZ);
         }
 
-        private string FormatRecordId(string steamId)
+        private async void TetherportToPlayer(int buttonIdx, string linkId, string inputContent, int playerId, int customValue)
         {
-            return $"{steamId}.tether";
+            Log("Link id was " + linkId + " & button was " + buttonIdx);
+            if (string.IsNullOrWhiteSpace(linkId))
+                return;
+
+            var targetPlayerId = int.Parse(linkId);
+
+            var adminPlayer = await QueryPlayerInfo(playerId);
+
+            //Save new admin tether record
+            _dbManager.SaveRecord(TetherporterHelper.FormatTetherportFileName(adminPlayer.steamId), adminPlayer.ToPlayerLocationRecord(), 
+                clearExisting: true);
+
+            await TeleportPlayerToPlayer(adminPlayer.entityId, targetPlayerId);
+            await MessagePlayer(adminPlayer.entityId, $"Created Admin Tetherporter tether! Telported to PlayerId:{targetPlayerId}.", 5);
+
+        }
+
+        private string FormatPlayerList(List<PlayerInfo> players)
+        {
+            var uiString = $"Click one of the below players from the online player list. A Tether will be created at your current " +
+                $"location and you will be teleported to the player. Then type '!uattp' to return to the Tether!\n\n";
+
+            foreach (var player in players) 
+            {
+                for (var i = 0; i < 25; i++)
+                {
+                    uiString += FormatPlayerLocation(player);
+                }
+            }
+
+            return uiString;
+        }
+
+        private string FormatPlayerLocation(PlayerInfo player)
+        {
+            return $"<link=\"{player.entityId}\"><indent=5%><line-height=150%>{player.playerName} | {player.entityId} | {player.playfield} | X:{player.pos.x} | Y:{player.pos.y} | Z:{player.pos.z}</line-height></indent></link>\n";
         }
     }
 }

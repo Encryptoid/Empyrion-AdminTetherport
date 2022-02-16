@@ -1,6 +1,6 @@
 Name: AdminTetherport
-Description: Mod that allows an admin to telport to an entity id and return afterwards.
+Description: Mod that allows an admin to teleport to an online player and return afterwards.
 Author: Encryptoid
-Version: 1.0
-# Website: https://...
+Version: 3.0
+Website: https://github.com/Encryptoid/Empyrion-AdminTetherport
 ModTargets: Dedi
