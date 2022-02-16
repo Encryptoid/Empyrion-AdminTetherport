@@ -44,7 +44,7 @@ namespace AdminTetherport
                 allPlayers.Add(await QueryPlayerInfo(playerId));
             }
 
-            ShowLinkedDialog(adminPlayer.entityId, FormatPlayerList(allPlayers), "Admin Tetherporter!", TetherportToPlayer);
+            await ShowLinkedDialog(adminPlayer.entityId, FormatPlayerList(allPlayers), "Admin Tetherporter!", TetherportToPlayer);
 
             return;
         }
