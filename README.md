@@ -18,7 +18,7 @@ Example with my player repeated for testing purposes:
 This command will untether you and teleport you back to the saved location(tether location).
 
 # !retrieve
-This will launch a UI displaying active players simialr to the image for !attp. Clicking on one of these names will teleport the player to you.
+This will launch a UI displaying active players simialr to the image for !attp. Clicking on one of these names will teleport the player to you. This will not create a tether, this is mostly just for retrieving players who are stuck. If the player is in a ship, it should also teleport the ship, allowing you to free people who's ships are stuck.
 
 # Initial Setup
 Please read the Initial Setup section here before running on your server: https://github.com/Encryptoid/zucchini-empyrion#initial-setup-notes
