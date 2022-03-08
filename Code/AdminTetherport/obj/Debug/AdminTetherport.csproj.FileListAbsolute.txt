@@ -90,3 +90,4 @@ L:\GitRepos\AdminTetherport\Code\AdminTetherport\bin\Debug\System.Buffers.xml
 L:\GitRepos\AdminTetherport\Code\AdminTetherport\obj\Debug\AdminTetherport.csproj.CopyComplete
 L:\GitRepos\AdminTetherport\Code\AdminTetherport\obj\Debug\AdminTetherport.dll
 L:\GitRepos\AdminTetherport\Code\AdminTetherport\obj\Debug\AdminTetherport.pdb
+L:\GitRepos\AdminTetherport\Code\AdminTetherport\obj\Debug\AdminTetherport.csproj.AssemblyReference.cache
