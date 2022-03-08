@@ -15,7 +15,10 @@ Example with my player repeated for testing purposes:
 ![image](https://user-images.githubusercontent.com/89423557/154297229-f54eabca-4e35-4847-9865-38c6da53cd73.png)
 
 # !uattp
-This command will untether the admin and teleport them back to the saved location(tether location).
+This command will untether you and teleport you back to the saved location(tether location).
+
+# !retrieve
+This will launch a UI displaying active players simialr to the image for !attp. Clicking on one of these names will teleport the player to you.
 
 # Initial Setup
-Please read the Initial Setup section here: https://github.com/Encryptoid/zucchini-empyrion#initial-setup-notes
+Please read the Initial Setup section here before running on your server: https://github.com/Encryptoid/zucchini-empyrion#initial-setup-notes
